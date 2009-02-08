@@ -1,0 +1,8 @@
+==Redirect
+
+A Ruby redirect server build on Rack
+
+==Example
+
+  require 'redirect'
+  redirect({ '/old_url' => '/new_url'})
