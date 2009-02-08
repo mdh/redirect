@@ -4,7 +4,7 @@ require 'rack/showexceptions'
 require 'rack/request'
 require 'rack/response'
 
-def redirect(redirects)
+def redirect(*redirects)
 
   app = Rack::Redirect.new(redirects)
   Rack::Handler::WEBrick.run \
@@ -22,7 +22,7 @@ module Rack
 
   class Redirect
           
-    def initialize(redirects)
+    def initialize(*redirects)
       @redirects = redirects
     end
     
