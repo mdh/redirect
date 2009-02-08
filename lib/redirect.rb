@@ -23,17 +23,17 @@ module Rack
   class Redirect
           
     def initialize(redirects)
-      redirects.keys.each{|k| raise "redirect url should start with a slash" unless k =~ /^\//}
       @redirects = redirects
     end
     
     def call(env)
       req = Request.new(env)
-      if @redirects[req.fullpath]
-        [301, {"Location" => @redirects[req.fullpath], "Content-Type" => "text/html"}, "Redirecting to: #{@redirects[req.fullpath]}"]
-      else
-        [404, {"Content-Type" => "text/html"}, "not found"]
+      @redirects.each_pair do |key, value|
+        if req.fullpath.match(key)
+          return [301, {"Location" => value, "Content-Type" => "text/html"}, "Redirecting to: #{value}"]
+        end
       end
+      [404, {"Content-Type" => "text/html"}, "not found"]
     end
     
   end

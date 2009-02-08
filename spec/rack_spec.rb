@@ -25,8 +25,11 @@ describe "Rack::Redirect" do
     res.body.should == 'Redirecting to: /2008-new'
   end
 
-  it "should fail if key of redirect hash doesn't start with a slash" do
-    should.raise{ Rack::Redirect.new({'' => '/test'}) }
+  it "should redirect for a regular_expression" do
+    @app = Rack::Redirect.new({'^/old' => '/new'})
+    res = Rack::MockRequest.new(@app).get('/old/2008')
+    res.headers.should == { 'Location' => '/new', 'Content-Type' => 'text/html' }
+    res.body.should == 'Redirecting to: /new'
   end
 
 end
