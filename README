@@ -1,7 +1,0 @@
-==Redirect
-
-A Ruby redirect server build on Rack
-
-==Example
-
-% ruby example.rb
