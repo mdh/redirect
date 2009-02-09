@@ -33,10 +33,10 @@ describe "Rack::Redirect" do
   end
 
   it "should allow multiple redirects" do
-    @app = Rack::Redirect.new(['^/old', '/new'], ['^/old2', '/new2'])
-    res = Rack::MockRequest.new(@app).get('/old/2008')
-    res.headers.should == { 'Location' => '/new', 'Content-Type' => 'text/html' }
-    res.body.should == 'Redirecting to: /new'
+    @app = Rack::Redirect.new(['^/old3', '/new'], ['^/old2', '/new2'])
+    res = Rack::MockRequest.new(@app).get('/old2008')
+    res.headers.should == { 'Location' => '/new2', 'Content-Type' => 'text/html' }
+    res.body.should == 'Redirecting to: /new2'
   end
 
 end
