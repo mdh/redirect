@@ -1,12 +1,12 @@
-=Redirect
+= Redirect
 
-
+http://github.com/p8/redirect/tree/master
 
 == DESCRIPTION:
 
 Redirect is a ruby redirect server build on Rack
 
-==Example
+== EXAMPLE
 
 % ruby example.rb
 
