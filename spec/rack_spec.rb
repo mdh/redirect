@@ -67,3 +67,16 @@ describe "Redirect::Data" do
     data.name.should == nil
   end  
 end
+
+describe "Redirect" do
+  after do
+    Redirect.default_code = 301
+  end
+  it "Should be able to configure the default http code" do
+    data = Redirect::Data.new('/a', '/b')
+    data.code.should == 301    
+    Redirect.default_code = 307
+    data = Redirect::Data.new('/a', '/b')
+    data.code.should == 307
+  end
+end

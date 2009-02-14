@@ -12,9 +12,17 @@ module Redirect
     def initialize(catch_url, redirect_url, options = {})
       @catch_url = catch_url
       @redirect_url = redirect_url
-      @code = options[:code] || 301
+      @code = options[:code] || Redirect.default_code
       @name = options[:name]
     end
+  end
+  
+  def self.default_code= default_code
+    @default_code = default_code
+  end
+  
+  def self.default_code
+    @default_code ||= 301
   end
     
 end
