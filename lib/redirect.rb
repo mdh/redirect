@@ -6,6 +6,17 @@ require 'rack/response'
 
 module Redirect
   VERSION = '0.0.1'
+  
+  class Data
+    attr_reader :catch_url, :redirect_url, :code, :name
+    def initialize(catch_url, redirect_url, options = {})
+      @catch_url = catch_url
+      @redirect_url = redirect_url
+      @code = options[:code] || 301
+      @name = options[:name]
+    end
+  end
+    
 end
 
 def redirect(*redirects)
@@ -20,19 +31,20 @@ end
 module Rack
 
   class Redirect
-          
+    attr_reader :redirects
     def initialize(*redirects)
-      @redirects = redirects
+      @redirects = redirects.collect do |r|
+        ::Redirect::Data.new(*r)
+      end
     end
     
     def call(env)
       req = Request.new(env)
-      @redirects.each do |pair|
-        key, redirect_url = pair
-        if req.fullpath.match(key)
-          puts "Match found for #{key}."
-          puts "Redirecting to #{redirect_url}"
-          return [301, {"Location" => redirect_url, "Content-Type" => "text/html"}, "Redirecting to: #{redirect_url}"]
+      @redirects.each do |data|
+        if req.fullpath.match(data.catch_url)
+          puts "Match found for #{data.catch_url}."
+          puts "Redirecting to #{data.redirect_url}"
+          return [data.code, {"Location" => data.redirect_url, "Content-Type" => "text/html"}, "Redirecting to: #{data.redirect_url}"]
         end
       end
       [404, {"Content-Type" => "text/html"}, "not found"]

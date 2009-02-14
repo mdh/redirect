@@ -39,4 +39,31 @@ describe "Rack::Redirect" do
     res.body.should == 'Redirecting to: /new2'
   end
 
+  it "should turn redirects array into Redirect Objects" do
+    @app = Rack::Redirect.new(['^/old3', '/new', {:code => 307}], ['^/old2', '/new2', {:name => 'test'}])
+    res = Rack::MockRequest.new(@app).get("/test")
+
+    res.not_found?.should be_true
+    res["Content-Type"].should == "text/html"
+    res.body.should == "not found"
+  end
+
+end
+
+describe "Redirect::Data" do
+  it "should turn an array into an Object" do
+    data = Redirect::Data.new('^/old3', '/new', {:code => 307, :name => 'test'})
+    data.catch_url.should == '^/old3'
+    data.redirect_url.should == '/new'
+    data.code.should == 307    
+    data.name.should == 'test'
+  end
+  
+  it "should turn an dafault array into an Object" do
+    data = Redirect::Data.new('^/old3', '/new')
+    data.catch_url.should == '^/old3'
+    data.redirect_url.should == '/new'
+    data.code.should == 301
+    data.name.should == nil
+  end  
 end
