@@ -8,7 +8,17 @@ Redirect is a ruby redirect server build on Rack
 
 == EXAMPLE
 
-% ruby example.rb
+Just pass an array to the redirect method
+
+  require 'rubygems'
+  require 'redirect'
+  redirect  ['/catch_url', '/redirect_url', {:code => 307}],
+            ['^/some_regexp', '/all']
+            
+You can change the default redirect code:
+  
+  Redirect.default_code = 307
+
 
 == LICENSE:
 
