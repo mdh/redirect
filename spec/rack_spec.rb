@@ -18,6 +18,29 @@ describe "Rack::Redirect" do
     res.body.should == 'Redirecting to: /test'
   end  
   
+  it "should show sitemap.xml" do
+    @app = Rack::Redirect.new(['/', '/test', {:name => 'test'}])
+    res = Rack::MockRequest.new(@app).get('/sitemap.xml')
+    res.headers.should == {'Content-Type' => 'text/xml' }
+    res.body.should == %(<?xml version="1.0" encoding="UTF-8"?>\n) +
+    %(<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n) +
+    %(<url>\n) +
+      %(<loc>http://www.example.com/test</loc>\n) +
+      %(</url>\n) +
+    %(</urlset>\n)
+  end
+  
+  it "should show sitemap.xml only for named redirects" do
+    @app = Rack::Redirect.new(['/', '/test', {:name => 'test'}], ['/a', '/hidden'])
+    res = Rack::MockRequest.new(@app).get('/sitemap.xml')
+    res.body.should == %(<?xml version="1.0" encoding="UTF-8"?>\n) +
+    %(<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n) +
+    %(<url>\n) +
+      %(<loc>http://www.example.com/test</loc>\n) +
+      %(</url>\n) +
+    %(</urlset>\n)
+  end  
+  
   it "should redirect if redirect exists" do
     @app = Rack::Redirect.new(['/old/2008', '/2008-new'])
     res = Rack::MockRequest.new(@app).get('/old/2008')
