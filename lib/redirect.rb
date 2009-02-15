@@ -49,7 +49,7 @@ module Rack
     def call(env)
       req = Request.new(env)
       if req.fullpath == '/sitemap.xml'
-        return [200, {"Content-Type" => "text/xml"}, sitemap]
+        return [200, {"Content-Type" => "text/xml"}, sitemap(req.host)]
       end
       @redirects.each do |r|
         if req.fullpath.match(r.catch_url)
@@ -61,12 +61,12 @@ module Rack
       [404, {"Content-Type" => "text/html"}, "not found"]
     end
    
-    def sitemap
+    def sitemap(host)
       %(<?xml version="1.0" encoding="UTF-8"?>\n) +
       %(<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n) +
       @redirects.select{|r| r.name }.collect { |r|
         %(<url>\n) +
-          %(<loc>http://www.example.com#{r.redirect_url}</loc>\n) +
+          %(<loc>http://#{host}#{r.redirect_url}</loc>\n) +
         %(</url>\n)}.join +
       %(</urlset>\n)
     end      

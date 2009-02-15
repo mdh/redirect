@@ -25,7 +25,7 @@ describe "Rack::Redirect" do
     res.body.should == %(<?xml version="1.0" encoding="UTF-8"?>\n) +
     %(<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n) +
     %(<url>\n) +
-      %(<loc>http://www.example.com/test</loc>\n) +
+      %(<loc>http://example.org/test</loc>\n) +
       %(</url>\n) +
     %(</urlset>\n)
   end
@@ -36,7 +36,7 @@ describe "Rack::Redirect" do
     res.body.should == %(<?xml version="1.0" encoding="UTF-8"?>\n) +
     %(<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n) +
     %(<url>\n) +
-      %(<loc>http://www.example.com/test</loc>\n) +
+      %(<loc>http://example.org/test</loc>\n) +
       %(</url>\n) +
     %(</urlset>\n)
   end  
@@ -95,6 +95,7 @@ describe "Redirect" do
   after do
     Redirect.default_code = 301
   end
+  
   it "Should be able to configure the default http code" do
     data = Redirect::Data.new('/a', '/b')
     data.code.should == 301    
@@ -102,4 +103,5 @@ describe "Redirect" do
     data = Redirect::Data.new('/a', '/b')
     data.code.should == 307
   end
+  
 end
