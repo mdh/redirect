@@ -8,14 +8,17 @@ Redirect is a ruby redirect server build on Rack
 
 == EXAMPLE
 
-Just pass an array to the redirect method
+Create a file and pass an array to the redirect method:
 
   require 'redirect'
   redirect  ['/catch_url', '/redirect_url'],
             ['/catch_url2', '/redirect_url2', {:code => 307, :name => 'redirect link'}],  
             ['^/some_regexp', '/all']
             
-You can change the default redirect code:
+The catch_url can be a regular expression.
+You can overwrite the default 301 http code in the options.
+
+The default redirect code can be changed:
   
   Redirect.default_code = 307
 
