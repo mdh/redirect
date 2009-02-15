@@ -12,13 +12,15 @@ Just pass an array to the redirect method
 
   require 'rubygems'
   require 'redirect'
-  redirect  ['/catch_url', '/redirect_url', {:code => 307}],
+  redirect  ['/catch_url', '/redirect_url'],
+            ['/catch_url2', '/redirect_url2', {:code => 307, :name => 'redirect link'}],  
             ['^/some_regexp', '/all']
             
 You can change the default redirect code:
   
   Redirect.default_code = 307
 
+A sitemap.xml is generated for all redirects that have a name.
 
 == LICENSE:
 
