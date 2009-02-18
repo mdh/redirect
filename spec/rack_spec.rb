@@ -11,6 +11,15 @@ describe "Rack::Redirect" do
     res.body.should == "not found"
   end
   
+  it "should show index if no redirect exists but index does" do
+    @app = Rack::Redirect.new()
+    @app.index = "index"
+    res = Rack::MockRequest.new(@app).get("/")
+    # res.not_found?.should be_true
+    res["Content-Type"].should == "text/html"
+    res.body.should == "index"
+  end  
+  
   it "should redirect '/' if redirect exists" do
     @app = Rack::Redirect.new(['/', '/test'])
     res = Rack::MockRequest.new(@app).get('/')

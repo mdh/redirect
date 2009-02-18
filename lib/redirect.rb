@@ -51,6 +51,9 @@ module Rack
       if req.fullpath == '/sitemap.xml'
         return [200, {"Content-Type" => "text/xml"}, sitemap(req.host)]
       end
+      if req.fullpath == '/' && index
+        return [200, {"Content-Type" => "text/html"}, index]
+      end      
       @redirects.each do |r|
         if req.fullpath.match(r.catch_url)
           puts "Match found for #{r.catch_url}."
@@ -69,7 +72,15 @@ module Rack
           %(<loc>http://#{host}#{r.redirect_url}</loc>\n) +
         %(</url>\n)}.join +
       %(</urlset>\n)
-    end      
+    end
+    
+    def index
+      @index
+    end
+    
+    def index= index
+      @index = index
+    end
     
   end
   
