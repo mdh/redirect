@@ -5,7 +5,7 @@ require 'rack/request'
 require 'rack/response'
 
 module Redirect
-  VERSION = '0.0.2'
+  VERSION = '0.0.4'
   
   class Data
     attr_reader :catch_url, :redirect_url, :code, :name
