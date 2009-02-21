@@ -1,12 +1,14 @@
 # -*- ruby -*-
 
 require 'rubygems'
-require 'hoe'
 require 'lib/redirect.rb'
 
-Hoe.new('redirect', Redirect::VERSION) do |p|
-  p.developer('Petrik de Heus', 'FIX@example.com')
-  p.remote_rdoc_dir = '' # Release to root  
+require 'hoe' rescue nil
+if defined? Hoe
+  Hoe.new('redirect', Redirect::VERSION) do |p|
+    p.developer('Petrik de Heus', 'FIX@example.com')
+    p.remote_rdoc_dir = '' # Release to root  
+  end
 end
 # 
 # require 'metric_fu'
