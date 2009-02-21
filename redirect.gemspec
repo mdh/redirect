@@ -1,4 +1,3 @@
-(in /Users/petrik/Projects/All/_small_projects/redirect)
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
