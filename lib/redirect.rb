@@ -5,7 +5,32 @@ require 'rack/request'
 require 'rack/response'
 
 module Redirect
-  VERSION = '0.0.4'
+  VERSION = '0.1.0'
+  
+  def self.default_code= default_code
+    @default_code = default_code
+  end
+  
+  def self.default_code
+    @default_code ||= 301
+  end
+
+  def self.autorun= autorun
+    @autorun = autorun
+  end
+  
+  def self.autorun
+    @autorun = true unless @autorun == false
+    @autorun
+  end
+
+  def self.app= app
+    @app = app
+  end
+  
+  def self.app
+    @app
+  end
   
   class Data
     attr_reader :catch_url, :redirect_url, :code, :name
@@ -16,24 +41,18 @@ module Redirect
       @name = options[:name]
     end
   end
-  
-  def self.default_code= default_code
-    @default_code = default_code
-  end
-  
-  def self.default_code
-    @default_code ||= 301
-  end
     
 end
 
 def redirect(*redirects)
 
-  app = Rack::Redirect.new(*redirects)
-  Rack::Handler::WEBrick.run \
-    Rack::ShowExceptions.new(Rack::Lint.new(app)),
-    :Port => 3000
-  run app
+  Redirect.app = Rack::Redirect.new(*redirects)
+  if Redirect.autorun
+    Rack::Handler::WEBrick.run \
+      Rack::ShowExceptions.new(Rack::Lint.new(Redirect.app)),
+      :Port => 3000
+    run Redirect.app
+  end
 end
 
 module Rack

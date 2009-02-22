@@ -1,3 +1,15 @@
+=== 0.1.0 / 2009-02-22
+
+* 1 major enhancement
+
+  * Works properly with rackup now
+  
+=== 0.0.4 / 2009-02-21
+
+* 1 minor bug fix
+
+  * Removed Hoe dependency
+  
 === 0.0.3 / 2009-02-21
 
 * 1 minor bug fix

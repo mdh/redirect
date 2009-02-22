@@ -103,6 +103,8 @@ end
 describe "Redirect" do
   after do
     Redirect.default_code = 301
+    Redirect.app = nil
+    Redirect.autorun = true
   end
   
   it "Should be able to configure the default http code" do
@@ -112,5 +114,17 @@ describe "Redirect" do
     data = Redirect::Data.new('/a', '/b')
     data.code.should == 307
   end
+  
+  it "Should be able to set app" do
+    Redirect.app.should == nil
+    Redirect.app = 'a'
+    Redirect.app.should == 'a'
+  end  
+
+  it "Should be able to set autorun" do
+    Redirect.autorun.should == true
+    Redirect.autorun = false
+    Redirect.autorun.should == false
+  end  
   
 end

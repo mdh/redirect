@@ -16,7 +16,7 @@ Create a file and pass an array to the redirect method:
             ['^/some_regexp', '/all']
             
 The catch_url can be a regular expression.
-You can overwrite the default 301 http code in the options.
+You can overwrite the http code (defaults is 301) in the options and pass a name for the sitemap.
 
 The default redirect code can be changed:
   

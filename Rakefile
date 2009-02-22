@@ -10,9 +10,9 @@ if defined? Hoe
     p.remote_rdoc_dir = '' # Release to root  
   end
 end
-# 
+
 # require 'metric_fu'
 # 
 # MetricFu::Configuration.run do |config|
-#   config.coverage = { :test_files => ['test/**/test_*.rb'] }
+#   config.coverage = { :test_files => ['spec/**/*_spec.rb'] }
 # end
