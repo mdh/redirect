@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+project = ARGV.first
+FileUtils.mkdir_p(project, :verbose => false) unless File.directory?(project)
+
+# create application
+open("#{project}/#{project}.rb", "w") do |f|
+  f.puts %(require 'rubygems'\n) +
+    %(require 'redirect'\n\n) +
+    %(redirect  ['/old_url', '/new_url', {:code => 307, :name => 'test'}],\n) +
+    %(      ['^/some_regexp', '/all'])
+end
+
+# create config
+open("#{project}/config.ru", "w") do |f|
+  f.puts %(require 'rubygems'\n) +
+    %(require 'redirect'\n\n) +
+    %(Redirect.autorun = false\n\n) +
+    %(require '#{project}.rb'\n\n) +
+    %(run Redirect.app)
+end
