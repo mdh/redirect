@@ -6,17 +6,36 @@ http://github.com/p8/redirect/tree/master
 
 Redirect is a simple Ruby redirect DSL build on Rack
 
-== EXAMPLE
+== GETTING STARTED
 
-Create a file and pass an array to the redirect method:
+From the commandline run:
 
-  require 'redirect'
+  redirect_app PROJECT_NAME
+
+This create a directory PROJECT_NAME with the required files.
+PROJECT_NAME.rb contains the main logic.
+
+To locally run the app you can do:  
+
+  ruby PROJECT_NAME.rb
+
+== REDIRECTS
+
+The first one is evaluated first, then the next one, etc..
+
   redirect  ['/catch_url', '/redirect_url'],
-            ['/catch_url2', '/redirect_url2', {:code => 307, :name => 'redirect link'}],  
-            ['^/some_regexp', '/all']
-            
-The catch_url can be a regular expression.
-You can overwrite the http code (defaults is 301) in the options and pass a name for the sitemap.
+            ['/catch_url2', '/redirect_url2']
+              
+The catch_url can be a regular expression:
+
+  ['^/some_regexp', '/all']
+  [/old\/(.*)/, '/new/$1']  # /old/2008/02/01 will be redirected to /new/2008/02/01
+
+You can pass extra options.
+ :code # Overwrite the http code (defaults is 301) in the options
+ :name # named redirects are public so they'll appear in you sitemap
+
+  ['/catch_url', '/redirect_url', {:code => 307, :name => 'redirect link'}]
 
 The default redirect code can be changed:
   

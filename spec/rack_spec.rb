@@ -64,6 +64,13 @@ describe "Rack::Redirect" do
     res.body.should == 'Redirecting to: /new'
   end
 
+  it "should redirect for a regular_expression with rewrite" do
+    @app = Rack::Redirect.new([/old\/(.*)/, '/new/$1'])
+    res = Rack::MockRequest.new(@app).get('/old/2008/02/14')
+    res.headers.should == { 'Location' => '/new/2008/02/14', 'Content-Type' => 'text/html' }
+    res.body.should == 'Redirecting to: /new/2008/02/14'
+  end
+
   it "should allow multiple redirects" do
     @app = Rack::Redirect.new(['^/old3', '/new'], ['^/old2', '/new2'])
     res = Rack::MockRequest.new(@app).get('/old2008')

@@ -1,3 +1,16 @@
+=== 0.3.0 / 2009-02-24
+
+* 1 major enhancement
+
+  * Added reuse of match patterns
+    [/old\/(.*)/, '/new/$1']  # /old/2008/02/01 will be redirected to /new/2008/02/01
+
+=== 0.2.0 / 2009-02-22
+
+* 1 major enhancement
+
+  * Added a generator method
+  
 === 0.1.0 / 2009-02-22
 
 * 1 major enhancement

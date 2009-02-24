@@ -5,7 +5,7 @@ require 'rack/request'
 require 'rack/response'
 
 module Redirect
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
   
   def self.default_code= default_code
     @default_code = default_code
@@ -75,9 +75,13 @@ module Rack
       end      
       @redirects.each do |r|
         if req.fullpath.match(r.catch_url)
+          redirect_url = r.redirect_url
+          if $1
+            redirect_url.gsub!('$1', $1)
+          end
           puts "Match found for #{r.catch_url}."
-          puts "Redirecting to #{r.redirect_url}"
-          return [r.code, {"Location" => r.redirect_url, "Content-Type" => "text/html"}, "Redirecting to: #{r.redirect_url}"]
+          puts "Redirecting to #{redirect_url}"
+          return [r.code, {"Location" => redirect_url, "Content-Type" => "text/html"}, "Redirecting to: #{redirect_url}"]
         end
       end
       [404, {"Content-Type" => "text/html"}, "not found"]
