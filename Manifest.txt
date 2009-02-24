@@ -2,6 +2,7 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
+bin/redirect_app
 example.rb
 example.ru
 lib/redirect.rb
