@@ -4,9 +4,10 @@ http://github.com/p8/redirect/tree/master
 
 == DESCRIPTION:
 
-Redirect is a simple Ruby redirect DSL build on Rack
+Redirect is a simple Ruby redirect DSL build on Rack.
+It's like a simple Ruby mod_rewrite, so you can write and test your redirects in Ruby.
 
-== GETTING STARTED
+== GETTING STARTED:
 
 From the commandline run:
 
@@ -19,7 +20,7 @@ To locally run the app you can do:
 
   ruby PROJECT_NAME.rb
 
-== REDIRECTS
+== REDIRECTS:
 
 The first one is evaluated first, then the next one, etc..
 
