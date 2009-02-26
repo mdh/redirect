@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 project = ARGV.first
-FileUtils.mkdir_p(project, :verbose => false) unless File.directory?(project)
+FileUtils.mkdir_p(project) unless File.directory?(project)
 
 # create application
 open("#{project}/#{project}.rb", "w") do |f|
@@ -18,4 +18,43 @@ open("#{project}/config.ru", "w") do |f|
     %(Redirect.autorun = false\n\n) +
     %(require '#{project}.rb'\n\n) +
     %(run Redirect.app)
+end
+
+# create public dir
+FileUtils.mkdir_p("#{project}/public") unless File.directory?("#{project}/public")
+
+# create tests dir
+FileUtils.mkdir_p("#{project}/test") unless File.directory?("#{project}/test")
+
+# create sample test
+open("#{project}/test/#{project}_test.rb", "w") do |f|
+  f.puts %(require 'rubygems'
+require 'test/unit'
+require 'redirect'
+
+class Test::Unit::TestCase
+
+  def assert_redirects(from, to)
+    res = Rack::MockRequest.new(APP[:redirect_app]).get(from)
+    res.headers.should == { 'Location' => to, 'Content-Type' => 'text/html' }
+    res.body.should == "Redirecting to: #{to}"
+  end
+
+end
+
+APP = {}
+
+def redirect(*redirects)
+  APP[:redirect_app] = Rack::Redirect.new(*redirects)
+end
+
+require File.dirname(__FILE__) + '/../#{project}.rb'
+
+class TestClient < Test::Unit::TestCase
+
+  def test_old_url
+    assert_redirects('/old_url', '/new_url')
+  end
+
+end)
 end
