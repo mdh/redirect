@@ -13,7 +13,7 @@ From the commandline run:
 
   redirect_app PROJECT_NAME
 
-This create a directory PROJECT_NAME with the required files.
+This create a directory PROJECT_NAME with the required files and tests.
 PROJECT_NAME.rb contains the main logic.
 
 To locally run the app you can do:  
