@@ -5,7 +5,7 @@ require 'rack/request'
 require 'rack/response'
 
 module Redirect
-  VERSION = '0.3.1'
+  VERSION = '0.3.2'
   
   def self.default_code= default_code
     @default_code = default_code
