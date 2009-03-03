@@ -6,5 +6,6 @@ bin/redirect_app
 example.rb
 example.ru
 lib/redirect.rb
+lib/redirect/test.rb
 spec/helper.rb
 spec/rack_spec.rb

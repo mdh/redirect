@@ -29,24 +29,7 @@ FileUtils.mkdir_p("#{project}/test") unless File.directory?("#{project}/test")
 # create sample test
 open("#{project}/test/#{project}_test.rb", "w") do |f|
   f.puts %(require 'rubygems'
-require 'test/unit'
-require 'redirect'
-
-class Test::Unit::TestCase
-
-  def assert_redirects(from, to)
-    res = Rack::MockRequest.new(APP[:redirect_app]).get(from)
-    res.headers.should == { 'Location' => to, 'Content-Type' => 'text/html' }
-    res.body.should == "Redirecting to: \#{to}"
-  end
-
-end
-
-APP = {}
-
-def redirect(*redirects)
-  APP[:redirect_app] = Rack::Redirect.new(*redirects)
-end
+require 'redirect/test'
 
 require File.dirname(__FILE__) + '/../#{project}.rb'
 
