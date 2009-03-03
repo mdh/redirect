@@ -5,8 +5,7 @@ class Test::Unit::TestCase
 
   def assert_redirects(from, to)
     res = Rack::MockRequest.new(APP[:redirect_app]).get(from)
-    res.headers.should == { 'Location' => to, 'Content-Type' => 'text/html' }
-    res.body.should == "Redirecting to: \#{to}"
+    assert_equal(res.headers, { 'Location' => to, 'Content-Type' => 'text/html' })
   end
 
 end
