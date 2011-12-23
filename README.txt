@@ -4,16 +4,16 @@ http://github.com/p8/redirect/tree/master
 
 == DESCRIPTION:
 
-Redirect is a simple Ruby redirect DSL build on Rack.
+Redirect is a simple Ruby redirect DSL built on Rack.
 It's like a simple Ruby mod_rewrite, so you can write and test your redirects in Ruby.
 
 == GETTING STARTED:
 
-From the commandline run:
+Create a new redirect rack app by running the following:
 
   redirect_app PROJECT_NAME
 
-This create a directory PROJECT_NAME with the required files and tests.
+This creates a directory PROJECT_NAME with the required files and tests.
 PROJECT_NAME.rb contains the main logic.
 
 To locally run the app you can do:  
