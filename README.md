@@ -1,14 +1,12 @@
-= Redirect
+# Redirect
 
 http://github.com/p8/redirect/tree/master
 
-== DESCRIPTION:
-
+## Description
 Redirect is a simple Ruby redirect DSL built on Rack.
 It's like a simple Ruby mod_rewrite, so you can write and test your redirects in Ruby.
 
-== GETTING STARTED:
-
+## Getting started
 Create a new redirect rack app by running the following:
 
   redirect_app PROJECT_NAME
@@ -20,7 +18,7 @@ To locally run the app you can do:
 
   ruby PROJECT_NAME.rb
 
-== REDIRECTS:
+## Redirects
 
 The first one is evaluated first, then the next one, etc..
 
@@ -28,11 +26,11 @@ The first one is evaluated first, then the next one, etc..
             ['/catch_url2', '/redirect_url2']
               
 The catch_url can be a regular expression:
-
   ['^/some_regexp', '/all']
   [/old\/(.*)/, '/new/$1']  # /old/2008/02/01 will be redirected to /new/2008/02/01
 
 You can pass extra options.
+
  :code # Overwrite the http code (defaults is 301) in the options
  :name # named redirects are public so they'll appear in you sitemap
 
@@ -44,7 +42,7 @@ The default redirect code can be changed:
 
 A sitemap.xml is generated for all redirects that have a name.
 
-== LICENSE:
+# License
 
 (The MIT License)
 
